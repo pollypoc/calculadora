@@ -12,8 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String memoria;
     private String operacao;
-    private Double valor1 = 0;
-    private Double valor2 = 0;
+    private Double valor1 = 0.0;
+    private Double valor2 = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,12 +184,45 @@ public class MainActivity extends AppCompatActivity {
                 if (displayconta.getText().equals("")){
 
                     Toast.makeText(getApplicationContext(),
-                            "Digite um texto", Toast.LENGTH_LONG).show();
+                            "Digite um número", Toast.LENGTH_LONG).show();
 
+                }
+                else {
+
+                    //operacao = "=";
+                    valor2 = Double.parseDouble(displayconta.getText().toString());
+                    displayconta.setText("");
+                    String resultado = Calcular(valor1,valor2, operacao);
+                    displayresult.setText(resultado);
                 }
             }
         });
 
 
+    }
+    public String Calcular(Double valor1, Double valor2, String operacao){
+
+         Double resultado = 0.0;
+
+         if (operacao.equals("+")){
+             resultado = valor1+valor2;
+         }
+         else if (operacao.equals("-")){
+             resultado = valor1-valor2;
+         }
+         else if(operacao.equals("x")){
+             resultado = valor1*valor2;
+         }
+         else if (operacao.equals("/")){
+             if (valor2 == 0){
+                 Toast.makeText(getApplicationContext(), "Não é possível dividir por 0!", Toast.LENGTH_LONG).show();
+             }
+             else{
+                 resultado = valor1/valor2;
+             }
+         }
+
+
+         return resultado.toString();
     }
 }
